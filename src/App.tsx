@@ -1,35 +1,30 @@
 import { Refine } from "@pankod/refine-core";
 import {
-  notificationProvider,
   Layout,
   ReadyPage,
+  notificationProvider,
   ErrorComponent,
 } from "@pankod/refine-antd";
-import "@pankod/refine-antd/dist/styles.min.css";
 import routerProvider from "@pankod/refine-react-router-v6";
 import dataProvider from "@pankod/refine-simple-rest";
-import { PostList, PostCreate, PostEdit, PostShow } from "pages/posts";
 
-function App() {
+import "@pankod/refine-antd/dist/styles.min.css";
+import { BookingList } from "pages/bookings";
+import { BookShow } from "pages/bookings/show";
+
+const Book_URL = "https://bookingsystemrestapi.herokuapp.com/api/Booking";
+const App: React.FC = () => {
   return (
     <Refine
-      notificationProvider={notificationProvider}
+      routerProvider={routerProvider}
+      dataProvider={dataProvider(Book_URL)}
       Layout={Layout}
       ReadyPage={ReadyPage}
+      notificationProvider={notificationProvider}
       catchAll={<ErrorComponent />}
-      routerProvider={routerProvider}
-      dataProvider={dataProvider("https://api.fake-rest.refine.dev")}
-      resources={[
-        {
-          name: "posts",
-          list: PostList,
-          create: PostCreate,
-          edit: PostEdit,
-          show: PostShow,
-        },
-      ]}
+      resources={[{ name: "books", list: BookingList, show: BookShow }]}
     />
   );
-}
+};
 
 export default App;

@@ -10,3 +10,13 @@ export interface IPost {
   createdAt: string;
   category: { id: number };
 }
+
+export interface IBooking {
+  id: string;
+  bookDate: string;
+  bookTime: string;
+  childCode: string;
+  cheerCode: string;
+  createDated: string;
+  createBy: string;
+}
