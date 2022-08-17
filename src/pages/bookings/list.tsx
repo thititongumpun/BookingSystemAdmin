@@ -7,7 +7,7 @@ import {
   DateField,
   Space,
   EditButton,
-  DeleteButton,
+  // DeleteButton,
   TagField,
   ShowButton,
 } from "@pankod/refine-antd";
