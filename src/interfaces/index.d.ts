@@ -20,3 +20,8 @@ export interface IBooking {
   createDated: string;
   createBy: string;
 }
+
+export interface IUser {
+  id: string;
+  username: string;
+}

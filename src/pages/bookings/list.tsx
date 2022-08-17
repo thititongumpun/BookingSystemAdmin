@@ -23,7 +23,7 @@ export const BookingList: React.FC<IResourceComponentsProps> = () => {
           dataIndex="bookDate"
           key="bookDate"
           title="จองวันที่"
-          render={(value) => <DateField value={value} format="LLL" />}
+          render={(value) => <DateField value={value} format="LL" />}
           sorter
         />
         <Table.Column
