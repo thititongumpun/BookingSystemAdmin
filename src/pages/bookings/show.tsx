@@ -1,5 +1,5 @@
 import { IResourceComponentsProps, useShow } from "@pankod/refine-core";
-import { Show, Typography, Tag, MarkdownField } from "@pankod/refine-antd";
+import { Show, Typography, Tag, MarkdownField, DateField } from "@pankod/refine-antd";
 
 import { IBooking } from "interfaces";
 
@@ -13,7 +13,7 @@ export const BookShow: React.FC<IResourceComponentsProps> = () => {
   return (
     <Show isLoading={isLoading}>
       <Title level={5}>วันที่จอง</Title>
-      <Text>{record?.bookDate}</Text>
+      <DateField value={record?.bookDate} format="LLL" />
 
       <Title level={5}>จองเวลา</Title>
       <Text>
@@ -31,13 +31,13 @@ export const BookShow: React.FC<IResourceComponentsProps> = () => {
 
       <Title level={5}>แก้ไขเมื่อ</Title>
       {record?.updateDated ? (
-        <MarkdownField value={record?.updateDated} />
+        <DateField value={record?.updateDated} format="LLL" />
       ) : (
         <Text>-</Text>
       )}
 
       <Title level={5}>แก้ไขโดย</Title>
-      {record?.updateDated ? (
+      {record?.updateBy ? (
         <MarkdownField value={record?.updateBy} />
       ) : (
         <Text>-</Text>
