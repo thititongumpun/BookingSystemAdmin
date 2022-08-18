@@ -15,12 +15,16 @@ import { authProvider, axiosInstance } from "authProvider";
 import { Login } from "pages/login";
 
 const Book_URL = "https://bookingsystemrestapi.herokuapp.com/api/Booking";
+const USER_URL = "https://bookingsystemrestapi.herokuapp.com/api/Accounts";
 const App: React.FC = () => {
   return (
     <Refine
       authProvider={authProvider}
       routerProvider={routerProvider}
-      dataProvider={dataProvider(Book_URL, axiosInstance)}
+      dataProvider={{
+        default: dataProvider(Book_URL, axiosInstance),
+        users: dataProvider(USER_URL, axiosInstance),
+      }}
       Layout={Layout}
       LoginPage={Login}
       ReadyPage={ReadyPage}

@@ -14,44 +14,33 @@ import {
 import { IUser } from "interfaces";
 
 export const UserList: React.FC<IResourceComponentsProps> = () => {
-  const { tableProps } = useTable<IUser>({ hasPagination: true });
+  const { tableProps } = useTable<IUser>({
+    hasPagination: true,
+    dataProviderName: "users",
+  });
 
   return (
     <List>
       <Table {...tableProps} rowKey="id">
         <Table.Column
-          dataIndex="bookDate"
-          key="bookDate"
-          title="จองวันที่"
-          render={(value) => <DateField value={value} format="LL" />}
+          dataIndex="username"
+          key="username"
+          title="username"
+          render={(value) => <TextField value={value} />}
           sorter
         />
         <Table.Column
-          dataIndex="bookTime"
-          key="bookTime"
-          title="เวลาที่จอง"
+          dataIndex="role"
+          key="role"
+          title="role"
           render={(value) => <TagField value={value} />}
           sorter
         />
         <Table.Column
-          dataIndex="cheerCode"
-          key="cheerCode"
-          title="รหัสเชียร์"
-          render={(value) => <TextField value={value} />}
-          sorter
-        />
-        <Table.Column
-          dataIndex="childCode"
-          key="childCode"
-          title="รหัสเด็ก"
-          render={(value) => <TextField value={value} />}
-          sorter
-        />
-        <Table.Column
-          dataIndex="createBy"
-          key="createBy"
-          title="จองโดย"
-          render={(value) => <TextField value={value} />}
+          dataIndex="createDated"
+          key="createDated"
+          title="create Dated"
+          render={(value) => <DateField value={value} format="LLL" />}
           sorter
         />
         {/* <Table.Column
