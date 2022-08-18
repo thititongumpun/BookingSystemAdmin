@@ -38,14 +38,12 @@ export const BookingList: React.FC<IResourceComponentsProps> = () => {
           key="childCode"
           title="รหัสเด็ก"
           render={(value) => <TextField value={value} />}
-          sorter
         />
         <Table.Column
           dataIndex="cheerCode"
           key="cheerCode"
           title="รหัสเชียร์"
           render={(value) => <TextField value={value} />}
-          sorter
         />
         <Table.Column
           dataIndex="createBy"
@@ -54,33 +52,6 @@ export const BookingList: React.FC<IResourceComponentsProps> = () => {
           render={(value) => <TextField value={value} />}
           sorter
         />
-        {/* <Table.Column
-          dataIndex={["category", "id"]}
-          title="Category"
-          render={(value) => {
-            if (isLoading) {
-              return <TextField value="Loading..." />;
-            }
-
-            return (
-              <TextField
-                value={
-                  categoriesData?.data.find((item) => item.id === value)?.title
-                }
-              />
-            );
-          }}
-          filterDropdown={(props) => (
-            <FilterDropdown {...props}>
-              <Select
-                style={{ minWidth: 200 }}
-                mode="multiple"
-                placeholder="Select Category"
-                {...categorySelectProps}
-              />
-            </FilterDropdown>
-          )}
-        /> */}
         <Table.Column<IBooking>
           title="Actions"
           dataIndex="actions"

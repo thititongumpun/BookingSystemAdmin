@@ -13,9 +13,12 @@ import { BookingList, BookShow, BookEdit } from "pages/bookings";
 import { UserList, UserShow } from "pages/users";
 import { authProvider, axiosInstance } from "authProvider";
 import { Login } from "pages/login";
+import { PostCreate, PostEdit, PostList, PostShow } from "pages/posts";
 
 const BOOKING_URL: string = process.env.REACT_APP_BOOKING_URL as string;
 const USERS_URL: string = process.env.REACT_APP_USERS_URL as string;
+// const LOCAL= "https://localhost:7074/api/Booking";
+// const DEV = "https://api.fake-rest.refine.dev";
 const App: React.FC = () => {
   return (
     <Refine
@@ -24,6 +27,7 @@ const App: React.FC = () => {
       dataProvider={{
         default: dataProvider(BOOKING_URL, axiosInstance),
         users: dataProvider(USERS_URL, axiosInstance),
+        // dev: dataProvider(DEV)
       }}
       Layout={Layout}
       LoginPage={Login}
@@ -33,6 +37,7 @@ const App: React.FC = () => {
       resources={[
         { name: "books", list: BookingList, edit: BookEdit, show: BookShow },
         { name: "users", list: UserList, show: UserShow },
+        { name: "posts", list: PostList, show: PostShow, edit: PostEdit, create: PostCreate}
       ]}
     />
   );

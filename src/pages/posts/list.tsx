@@ -14,8 +14,7 @@ import {
 import { IBooking } from "interfaces";
 
 export const PostList: React.FC<IResourceComponentsProps> = () => {
-  const { tableProps } = useTable<IBooking>({});
-  console.table(tableProps);
+  const { tableProps } = useTable<IBooking>({dataProviderName: "dev"});
 
   return (
     <List>

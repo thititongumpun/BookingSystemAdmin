@@ -6,7 +6,9 @@ import { IPost, ICategory } from "interfaces";
 const { Title, Text } = Typography;
 
 export const PostShow: React.FC<IResourceComponentsProps> = () => {
-  const { queryResult } = useShow<IPost>();
+  const { queryResult } = useShow<IPost>({
+    dataProviderName: "dev",
+  });
   const { data, isLoading } = queryResult;
   const record = data?.data;
 

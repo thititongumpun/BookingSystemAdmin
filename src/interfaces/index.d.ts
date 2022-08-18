@@ -19,6 +19,8 @@ export interface IBooking {
   cheerCode: string;
   createDated: string;
   createBy: string;
+  updateDated: string;
+  updateBy: string;
 }
 
 export interface IUser {

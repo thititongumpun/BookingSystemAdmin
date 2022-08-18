@@ -18,7 +18,7 @@ import { IPost } from "interfaces";
 export const PostEdit: React.FC<IResourceComponentsProps> = () => {
   const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
 
-  const { formProps, saveButtonProps, queryResult } = useForm<IPost>();
+  const { formProps, saveButtonProps, queryResult } = useForm<IPost>({dataProviderName: "dev",});
 
   const { selectProps: categorySelectProps } = useSelect<IPost>({
     resource: "categories",

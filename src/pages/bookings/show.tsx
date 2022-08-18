@@ -28,6 +28,20 @@ export const BookShow: React.FC<IResourceComponentsProps> = () => {
 
       <Title level={5}>จองโดย</Title>
       <MarkdownField value={record?.createBy} />
+
+      <Title level={5}>แก้ไขเมื่อ</Title>
+      {record?.updateDated ? (
+        <MarkdownField value={record?.updateDated} />
+      ) : (
+        <Text>-</Text>
+      )}
+
+      <Title level={5}>แก้ไขโดย</Title>
+      {record?.updateDated ? (
+        <MarkdownField value={record?.updateBy} />
+      ) : (
+        <Text>-</Text>
+      )}
     </Show>
   );
 };
