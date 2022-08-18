@@ -14,7 +14,7 @@ import {
 import { IBooking } from "interfaces";
 
 export const BookingList: React.FC<IResourceComponentsProps> = () => {
-  const { tableProps } = useTable<IBooking>({ hasPagination: true});
+  const { tableProps } = useTable<IBooking>({ hasPagination: true });
 
   return (
     <List>
@@ -34,16 +34,16 @@ export const BookingList: React.FC<IResourceComponentsProps> = () => {
           sorter
         />
         <Table.Column
-          dataIndex="cheerCode"
-          key="cheerCode"
-          title="รหัสเชียร์"
+          dataIndex="childCode"
+          key="childCode"
+          title="รหัสเด็ก"
           render={(value) => <TextField value={value} />}
           sorter
         />
         <Table.Column
-          dataIndex="childCode"
-          key="childCode"
-          title="รหัสเด็ก"
+          dataIndex="cheerCode"
+          key="cheerCode"
+          title="รหัสเชียร์"
           render={(value) => <TextField value={value} />}
           sorter
         />

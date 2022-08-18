@@ -2,31 +2,29 @@ import { AuthProvider } from "@pankod/refine-core";
 import axios, { AxiosRequestConfig } from "axios";
 
 export const axiosInstance = axios.create();
+const AUTH_URL = process.env.REACT_APP_AUTH_URL as string;
 
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
   const token = JSON.parse(localStorage.getItem("auth")!);
   if (token) {
-      if (request.headers) {
-          request.headers["Authorization"] = `Bearer ${token.jwtToken}`;
-      } else {
-          request.headers = {
-              Authorization: `Bearer ${token.jwtToken}`,
-          };
-      }
+    if (request.headers) {
+      request.headers["Authorization"] = `Bearer ${token.jwtToken}`;
+    } else {
+      request.headers = {
+        Authorization: `Bearer ${token.jwtToken}`,
+      };
+    }
   }
   return request;
 });
 
 export const authProvider: AuthProvider = {
   login: ({ username, password }) => {
-    const request = new Request(
-      `https://bookingsystemrestapi.herokuapp.com/api/accounts/authenticate`,
-      {
-        method: "POST",
-        body: JSON.stringify({ username, password }),
-        headers: new Headers({ "Content-Type": "application/json" }),
-      }
-    );
+    const request = new Request(AUTH_URL, {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+      headers: new Headers({ "Content-Type": "application/json" }),
+    });
     return fetch(request)
       .then((response) => {
         if (response.status < 200 || response.status >= 300) {
