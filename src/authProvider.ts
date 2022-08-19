@@ -10,9 +10,11 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
     if (request.headers) {
       request.headers["Authorization"] = `Bearer ${token.jwtToken}`;
     } else {
-      request.headers = {
-        Authorization: `Bearer ${token.jwtToken}`,
-      };
+      // request.headers = {
+      //   Authorization: `Bearer ${token.jwtToken}`,
+      // };
+      const response = axios.post(AUTH_URL, { withCredentials: true });
+      localStorage.setItem("auth", JSON.stringify(response));
     }
   }
   return request;
