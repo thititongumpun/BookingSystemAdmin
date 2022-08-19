@@ -10,12 +10,10 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
     if (request.headers) {
       request.headers["Authorization"] = `Bearer ${token.jwtToken}`;
     } else {
-      axios.post(AUTH_URL, { withCredentials: true }).then((res) => {
-        localStorage.setItem("auth", JSON.stringify(res.data));
-      });
-      request.headers = {
-        Authorization: `Bearer ${token.jwtToken}`,
-      };
+      document.location.href = '/login';
+      // request.headers = {
+      //   Authorization: `Bearer ${token.jwtToken}`,
+      // };
     }
   }
   return request;
@@ -56,7 +54,9 @@ export const authProvider: AuthProvider = {
   checkError: (error) => {
     const status = error.status;
     if (status === 401 || status === 403) {
-      localStorage.removeItem("auth");
+      // localStorage.removeItem("auth");
+      // wait for refresh Token
+      document.location.href = '/login';
       return Promise.reject();
     }
     return Promise.resolve();
