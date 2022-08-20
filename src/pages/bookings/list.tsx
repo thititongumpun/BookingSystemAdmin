@@ -1,4 +1,8 @@
-import { IResourceComponentsProps, usePermissions } from "@pankod/refine-core";
+import {
+  IResourceComponentsProps,
+  useExport,
+  usePermissions,
+} from "@pankod/refine-core";
 import {
   List,
   Table,
@@ -10,15 +14,36 @@ import {
   DeleteButton,
   TagField,
   ShowButton,
+  ExportButton,
 } from "@pankod/refine-antd";
 import { IBooking } from "interfaces";
 
 export const BookingList: React.FC<IResourceComponentsProps> = () => {
   const { tableProps } = useTable<IBooking>({ hasPagination: true });
+  const { triggerExport, isLoading: exportLoading } = useExport<IBooking>({
+    mapData: (item) => {
+      return {
+        จองวันที่: item.bookDate,
+        เวลาที่จอง: item.bookTime,
+        รหัสเด็ก: item.childCode,
+        รหัสเชียร์: item.cheerCode,
+        จองเมื่อ: item.createDated,
+        จองโดย: item.createBy,
+      };
+    },
+  });
   const { data: permissionsData } = usePermissions();
 
   return (
-    <List>
+    <List
+      headerProps={{
+        extra: (
+          <Space>
+            <ExportButton onClick={triggerExport} loading={exportLoading} />
+          </Space>
+        ),
+      }}
+    >
       <Table {...tableProps} rowKey="id">
         <Table.Column
           dataIndex="bookDate"

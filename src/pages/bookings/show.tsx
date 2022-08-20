@@ -13,7 +13,7 @@ export const BookShow: React.FC<IResourceComponentsProps> = () => {
   return (
     <Show isLoading={isLoading}>
       <Title level={5}>วันที่จอง</Title>
-      <DateField value={record?.bookDate} format="LLL" />
+      <DateField value={record?.bookDate} format="LL" />
 
       <Title level={5}>จองเวลา</Title>
       <Text>

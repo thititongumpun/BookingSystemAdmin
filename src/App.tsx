@@ -13,12 +13,10 @@ import { BookingList, BookShow, BookEdit } from "pages/bookings";
 import { UserList, UserShow } from "pages/users";
 import { authProvider, axiosInstance } from "authProvider";
 import { Login } from "pages/login";
-import { PostCreate, PostEdit, PostList, PostShow } from "pages/posts";
+import { ScheduleOutlined, UserOutlined } from "@ant-design/icons";
 
 const BOOKING_URL: string = process.env.REACT_APP_BOOKING_URL as string;
 const USERS_URL: string = process.env.REACT_APP_USERS_URL as string;
-// const LOCAL= "https://localhost:7074/api/Booking";
-// const DEV = "https://api.fake-rest.refine.dev";
 const App: React.FC = () => {
   return (
     <Refine
@@ -35,9 +33,19 @@ const App: React.FC = () => {
       notificationProvider={notificationProvider}
       catchAll={<ErrorComponent />}
       resources={[
-        { name: "books", list: BookingList, edit: BookEdit, show: BookShow },
-        { name: "users", list: UserList, show: UserShow },
-        { name: "posts", list: PostList, show: PostShow, edit: PostEdit, create: PostCreate}
+        {
+          name: "books",
+          list: BookingList,
+          edit: BookEdit,
+          show: BookShow,
+          icon: <ScheduleOutlined />,
+        },
+        {
+          name: "users",
+          list: UserList,
+          show: UserShow,
+          icon: <UserOutlined />,
+        },
       ]}
     />
   );
