@@ -10,10 +10,9 @@ axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
     if (request.headers) {
       request.headers["Authorization"] = `Bearer ${token.jwtToken}`;
     } else {
-      document.location.href = '/login';
-      // request.headers = {
-      //   Authorization: `Bearer ${token.jwtToken}`,
-      // };
+      request.headers = {
+        Authorization: `Bearer ${token.jwtToken}`,
+      };
     }
   }
   return request;
@@ -54,14 +53,18 @@ export const authProvider: AuthProvider = {
   checkError: (error) => {
     const status = error.status;
     if (status === 401 || status === 403) {
-      // localStorage.removeItem("auth");
-      // wait for refresh Token
-      document.location.href = '/login';
-      return Promise.reject();
+      return Promise.reject("/login");
     }
     return Promise.resolve();
   },
-  getPermissions: () => Promise.resolve(""),
+  getPermissions: () => {
+    const auth = localStorage.getItem("auth");
+    if (auth) {
+      const parsedUser = JSON.parse(auth);
+      return Promise.resolve(parsedUser.role);
+    }
+    return Promise.reject();
+  },
   getUserIdentity: () => {
     const auth = localStorage.getItem("auth");
     if (auth) {

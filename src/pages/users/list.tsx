@@ -1,4 +1,4 @@
-import { IResourceComponentsProps } from "@pankod/refine-core";
+import { IResourceComponentsProps, usePermissions } from "@pankod/refine-core";
 import {
   List,
   Table,
@@ -10,6 +10,7 @@ import {
   // DeleteButton,
   TagField,
   ShowButton,
+  DeleteButton,
 } from "@pankod/refine-antd";
 import { IUser } from "interfaces";
 
@@ -18,6 +19,8 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
     hasPagination: true,
     dataProviderName: "users",
   });
+
+  const { data: permissionsData } = usePermissions();
 
   return (
     <List>
@@ -43,41 +46,18 @@ export const UserList: React.FC<IResourceComponentsProps> = () => {
           render={(value) => <DateField value={value} format="LLL" />}
           sorter
         />
-        {/* <Table.Column
-          dataIndex={["category", "id"]}
-          title="Category"
-          render={(value) => {
-            if (isLoading) {
-              return <TextField value="Loading..." />;
-            }
-
-            return (
-              <TextField
-                value={
-                  categoriesData?.data.find((item) => item.id === value)?.title
-                }
-              />
-            );
-          }}
-          filterDropdown={(props) => (
-            <FilterDropdown {...props}>
-              <Select
-                style={{ minWidth: 200 }}
-                mode="multiple"
-                placeholder="Select Category"
-                {...categorySelectProps}
-              />
-            </FilterDropdown>
-          )}
-        /> */}
         <Table.Column<IUser>
           title="Actions"
           dataIndex="actions"
           render={(_, record) => (
             <Space>
-              <EditButton hideText size="small" recordItemId={record.id} />
+              {permissionsData?.includes("Admin") && (
+                <EditButton hideText size="small" recordItemId={record.id} />
+              )}
               <ShowButton hideText size="small" recordItemId={record.id} />
-              {/* <DeleteButton hideText size="small" recordItemId={record.id} /> */}
+              {permissionsData?.includes("Admin") && (
+                <DeleteButton hideText size="small" recordItemId={record.id} />
+              )}
             </Space>
           )}
         />

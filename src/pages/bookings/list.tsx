@@ -1,4 +1,4 @@
-import { IResourceComponentsProps } from "@pankod/refine-core";
+import { IResourceComponentsProps, usePermissions } from "@pankod/refine-core";
 import {
   List,
   Table,
@@ -7,7 +7,7 @@ import {
   DateField,
   Space,
   EditButton,
-  // DeleteButton,
+  DeleteButton,
   TagField,
   ShowButton,
 } from "@pankod/refine-antd";
@@ -15,6 +15,7 @@ import { IBooking } from "interfaces";
 
 export const BookingList: React.FC<IResourceComponentsProps> = () => {
   const { tableProps } = useTable<IBooking>({ hasPagination: true });
+  const { data: permissionsData } = usePermissions();
 
   return (
     <List>
@@ -57,9 +58,13 @@ export const BookingList: React.FC<IResourceComponentsProps> = () => {
           dataIndex="actions"
           render={(_, record) => (
             <Space>
-              <EditButton hideText size="small" recordItemId={record.id} />
+              {permissionsData?.includes("Admin") && (
+                <EditButton hideText size="small" recordItemId={record.id} />
+              )}
               <ShowButton hideText size="small" recordItemId={record.id} />
-              {/* <DeleteButton hideText size="small" recordItemId={record.id} /> */}
+              {permissionsData?.includes("Admin") && (
+                <DeleteButton hideText size="small" recordItemId={record.id} />
+              )}
             </Space>
           )}
         />
