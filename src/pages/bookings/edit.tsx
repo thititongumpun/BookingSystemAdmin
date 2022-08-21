@@ -1,31 +1,69 @@
-import { useState } from "react";
 import { IResourceComponentsProps } from "@pankod/refine-core";
 import {
+  DatePicker,
+  TimePicker,
   Edit,
   Form,
   Input,
-  Select,
   useForm,
-  // useSelect,
 } from "@pankod/refine-antd";
-import ReactMarkdown from "react-markdown";
-import ReactMde from "react-mde";
 
 import "react-mde/lib/styles/css/react-mde-all.css";
 
 import { IBooking } from "interfaces";
 
-export const BookEdit: React.FC<IResourceComponentsProps> = () => {
-  const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
+import dayjs from "dayjs";
 
+export const BookEdit: React.FC<IResourceComponentsProps> = () => {
   const { formProps, saveButtonProps } = useForm<IBooking>();
 
   return (
     <Edit saveButtonProps={saveButtonProps}>
       <Form {...formProps} layout="vertical">
         <Form.Item
-          label="Title"
-          // name="title"
+          label="วันที่จอง"
+          name="bookDate"
+          getValueProps={(value) => ({
+            value: value ? dayjs(value) : "",
+          })}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <DatePicker  />
+        </Form.Item>
+        {/* <Form.Item
+          label="เวลาที่จอง"
+          name="bookTime"
+          getValueProps={(value) => ({
+            value: value ? dayjs(value) : "",
+          })}
+          rules={[
+            {
+              required: true,
+            },
+          ]}
+        >
+          <TimePicker />
+        </Form.Item> */}
+
+        <Form.Item
+          label="รหัสเด็ก"
+          name="childCode"
+          rules={[
+            {
+              required: true,
+              whitespace: true,
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="รหัสเชียร์"
+          name="cheerCode"
           rules={[
             {
               required: true,
@@ -33,61 +71,6 @@ export const BookEdit: React.FC<IResourceComponentsProps> = () => {
           ]}
         >
           <Input />
-        </Form.Item>
-        <Form.Item
-          label="Status"
-          // name="status"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Select
-            options={[
-              {
-                label: "published",
-                value: "published",
-              },
-              {
-                label: "draft",
-                value: "draft",
-              },
-              {
-                label: "rejected",
-                value: "rejected",
-              },
-            ]}
-          />
-        </Form.Item>
-
-        <Form.Item
-          label="Category"
-          // name={["category", "id"]}
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          {/* <Select {...categorySelectProps} /> */}
-        </Form.Item>
-        <Form.Item
-          label="Content"
-          // name="content"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <ReactMde
-            selectedTab={selectedTab}
-            onTabChange={setSelectedTab}
-            generateMarkdownPreview={(markdown) =>
-              Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
-            }
-          />
         </Form.Item>
       </Form>
     </Edit>

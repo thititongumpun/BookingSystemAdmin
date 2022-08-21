@@ -9,7 +9,7 @@ import routerProvider from "@pankod/refine-react-router-v6";
 import dataProvider from "@pankod/refine-simple-rest";
 
 import "@pankod/refine-antd/dist/styles.min.css";
-import { BookingList, BookShow, BookEdit } from "pages/bookings";
+import { BookingList, BookEdit } from "pages/bookings";
 import { UserList, UserShow } from "pages/users";
 import { authProvider, axiosInstance } from "authProvider";
 import { Login } from "pages/login";
@@ -25,7 +25,6 @@ const App: React.FC = () => {
       dataProvider={{
         default: dataProvider(BOOKING_URL, axiosInstance),
         users: dataProvider(USERS_URL, axiosInstance),
-        // dev: dataProvider(DEV)
       }}
       Layout={Layout}
       LoginPage={Login}
@@ -37,7 +36,6 @@ const App: React.FC = () => {
           name: "books",
           list: BookingList,
           edit: BookEdit,
-          show: BookShow,
           icon: <ScheduleOutlined />,
         },
         {
