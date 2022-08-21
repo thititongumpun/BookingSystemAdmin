@@ -11,13 +11,11 @@ import {
   useTable,
   DateField,
   Space,
-  EditButton,
   DeleteButton,
   TagField,
   ShowButton,
   ExportButton,
   Modal,
-  Show,
   Tag,
   MarkdownField,
   Typography,
@@ -45,7 +43,7 @@ export const BookingList: React.FC<IResourceComponentsProps> = () => {
   const { data: permissionsData } = usePermissions();
   const [visibleShowModal, setVisibleShowModal] = useState<boolean>(false);
   const { queryResult, setShowId } = useShow<IBooking>();
-  const { data: showQueryResult, isLoading } = queryResult;
+  const { data: showQueryResult } = queryResult;
   const record = showQueryResult?.data;
 
   return (
@@ -98,9 +96,9 @@ export const BookingList: React.FC<IResourceComponentsProps> = () => {
             dataIndex="actions"
             render={(_, record) => (
               <Space>
-                {permissionsData?.includes("Admin") && (
+                {/* {permissionsData?.includes("Admin") && (
                   <EditButton hideText size="small" recordItemId={record.id} />
-                )}
+                )} */}
                 <ShowButton
                   hideText
                   size="small"
@@ -125,40 +123,38 @@ export const BookingList: React.FC<IResourceComponentsProps> = () => {
       <Modal
         visible={visibleShowModal}
         onCancel={() => setVisibleShowModal(false)}
-        title="Show Book"
+        title="Show Booking"
       >
-        <Show isLoading={isLoading}>
-          <Title level={5}>วันที่จอง</Title>
-          <DateField value={record?.bookDate} format="LL" />
+        <Title level={5}>วันที่จอง</Title>
+        <DateField value={record?.bookDate} format="LL" />
 
-          <Title level={5}>จองเวลา</Title>
-          <Text>
-            <Tag>{record?.bookTime}</Tag>
-          </Text>
+        <Title level={5}>จองเวลา</Title>
+        <Text>
+          <Tag>{record?.bookTime}</Tag>
+        </Text>
 
-          <Title level={5}>รหัสเด็ก</Title>
-          <Text>{record?.childCode}</Text>
+        <Title level={5}>รหัสเด็ก</Title>
+        <Text>{record?.childCode}</Text>
 
-          <Title level={5}>รหัสเชียร์</Title>
-          <MarkdownField value={record?.cheerCode} />
+        <Title level={5}>รหัสเชียร์</Title>
+        <MarkdownField value={record?.cheerCode} />
 
-          <Title level={5}>จองโดย</Title>
-          <MarkdownField value={record?.createBy} />
+        <Title level={5}>จองโดย</Title>
+        <MarkdownField value={record?.createBy} />
 
-          <Title level={5}>แก้ไขเมื่อ</Title>
-          {record?.updateDated ? (
-            <DateField value={record?.updateDated} format="LLL" />
-          ) : (
-            <Text>-</Text>
-          )}
+        <Title level={5}>แก้ไขเมื่อ</Title>
+        {record?.updateDated ? (
+          <DateField value={record?.updateDated} format="LLL" />
+        ) : (
+          <Text>-</Text>
+        )}
 
-          <Title level={5}>แก้ไขโดย</Title>
-          {record?.updateBy ? (
-            <MarkdownField value={record?.updateBy} />
-          ) : (
-            <Text>-</Text>
-          )}
-        </Show>
+        <Title level={5}>แก้ไขโดย</Title>
+        {record?.updateBy ? (
+          <MarkdownField value={record?.updateBy} />
+        ) : (
+          <Text>-</Text>
+        )}
       </Modal>
     </>
   );

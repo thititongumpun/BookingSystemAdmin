@@ -32,11 +32,11 @@ export const BookEdit: React.FC<IResourceComponentsProps> = () => {
             },
           ]}
         >
-          <DatePicker  />
+          <DatePicker format="DD-MM-YYYY" />
         </Form.Item>
-        {/* <Form.Item
+        <Form.Item
           label="เวลาที่จอง"
-          name="bookTime"
+          name="bookTime"          
           getValueProps={(value) => ({
             value: value ? dayjs(value) : "",
           })}
@@ -46,8 +46,8 @@ export const BookEdit: React.FC<IResourceComponentsProps> = () => {
             },
           ]}
         >
-          <TimePicker />
-        </Form.Item> */}
+          <TimePicker defaultValue={dayjs('12:08', "HH:mm")} format="HH:mm" />
+        </Form.Item>
 
         <Form.Item
           label="รหัสเด็ก"
